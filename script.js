@@ -1,35 +1,36 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Dynamically adding service items
-    const services = [
-        { name: "Web Design", description: "High-quality web design services." },
-        { name: "SEO", description: "Improve your site's visibility." },
-        { name: "Marketing", description: "Effective marketing strategies." }
-        // Add more services as needed
-    ];
+    // ...existing JavaScript functionalities for services, gallery, etc...
 
-    const servicesGrid = document.querySelector('.service-grid');
-    services.forEach(service => {
-        let div = document.createElement('div');
-        div.className = 'service-item';
-        div.innerHTML = `<h3>${service.name}</h3><p>${service.description}</p>`;
-        servicesGrid.appendChild(div);
+    const modal = document.getElementById('login-modal');
+    const closeButton = document.querySelector('.close-button');
+    const loginForm = document.getElementById('login-form');
+
+    function openModal() {
+        modal.style.display = 'block';
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    closeButton.addEventListener('click', closeModal);
+
+    const correctUsername = 'admin';
+    const correctPassword = 'abc';
+
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (username === correctUsername && password === correctPassword) {
+            alert('Login Successful!');
+            closeModal();
+        } else {
+            alert('Incorrect Username or Password');
+        }
     });
 
-    // Dynamically generating a portfolio gallery
-    const portfolioItems = [
-        { image: 'portfolio1.jpg', title: 'Project 1' },
-        { image: 'portfolio2.jpg', title: 'Project 2' }
-        // ...more items...
-    ];
-
-    const gallery = document.getElementById('portfolio-gallery');
-    portfolioItems.forEach(item => {
-        let div = document.createElement('div');
-        div.className = 'gallery-item';
-        div.style.backgroundImage = `url(${item.image})`;
-        div.innerHTML = `<h3>${item.title}</h3>`;
-        gallery.appendChild(div);
-    });
-
-    // Additional interactive or dynamic features can be added here
+    // Optionally, open the modal on page load for demonstration
+    openModal();
 });
