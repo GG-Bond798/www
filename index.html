@@ -3,50 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complex Professional Webpage</title>
+    <title>Complex Professional Webpage with Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#gallery">Portfolio</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+        <!-- Navigation items here -->
     </nav>
 
     <header>
-        <div class="header-content">
-            <h1>Welcome to Our Complex Professional Webpage</h1>
-            <p>Discover our range of services and expertise</p>
-        </div>
+        <!-- Header content here -->
     </header>
 
     <main>
-        <section id="about">
-            <h2>About Us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-        </section>
-        <section id="services">
-            <h2>Our Services</h2>
-            <div class="service-grid">
-                <!-- Service items will be added here -->
-            </div>
-        </section>
-        <section id="gallery">
-            <h2>Our Portfolio</h2>
-            <div id="portfolio-gallery">
-                <!-- Gallery items will be populated here via JavaScript -->
-            </div>
-        </section>
-        <!-- Additional complex sections can be added here -->
+        <!-- Main content here -->
     </main>
 
     <footer>
-        <p>© 2024 Complex Professional Webpage. All rights reserved.</p>
+        <!-- Footer content here -->
     </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
