@@ -1,0 +1,29 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // ...existing functionalities...
+
+    const modal = document.getElementById('login-modal');
+    const closeButton = document.querySelector('.close-button');
+    const loginForm = document.getElementById('login-form');
+
+    // ...user array and hashPassword function...
+
+    loginForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const hashedPassword = await hashPassword(password);
+
+        const validUser = users.some(user => user.username === username && user.passwordHash === hashedPassword);
+
+        if (validUser) {
+            closeModal();
+            window.location.href = 'useless.html'; // Redirect to the useless page
+        } else {
+            alert('Incorrect Username or Password');
+        }
+    });
+
+    // ...openModal and closeModal functions...
+
+    openModal();
+});
