@@ -32,34 +32,32 @@
         }
         #main .days-count {
             display: inline-block;
-            font-size: 4rem; /* Larger font size */
-            color: #e67e22; /* Vibrant color for emphasis */
+            font-size: 4rem;
+            color: #e67e22;
             padding: 0.5rem 1rem;
-            border-radius: 10px; /* Rounded corners */
-            background-color: #fff; /* White background */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-            margin: 0 0.5rem; /* Spacing for aesthetics */
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 0 0.5rem;
         }
         #main h3 {
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+        .must-do-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
         }
-        ul li {
-            margin: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
+        .must-do-item {
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease-in-out;
+            transition: all 0.3s ease;
         }
-        ul li:hover {
-            background-color: #FFC371;
+        .must-do-item:first-child {
+            background-color: #a29bfe; /* A different, visually appealing color for the first task */
         }
         footer {
             margin-top: 2rem;
@@ -91,13 +89,7 @@
             <h3>Our Journey So Far</h3>
             <p>Today marks our beautiful journey together. Here's to the love, laughter, and countless memories we've shared. Let's make every moment count!</p>
             <h3>100 Must-Do List</h3>
-            <ul>
-                <script>
-                    for(let i = 1; i <= 100; i++) {
-                        document.write('<li>Must-Do #' + i + '</li>');
-                    }
-                </script>
-            </ul>
+            <div class="must-do-list" id="mustDoList"></div>
         </section>
     </main>
     <footer class="container">
@@ -110,6 +102,7 @@
             loginSection.style.display = 'none';
             mainSection.style.display = 'block';
             updateDaysTogether();
+            generateMustDoList();
         }
 
         function updateDaysTogether() {
@@ -118,6 +111,16 @@
             const diffTime = Math.abs(today - startDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             document.querySelector('#main .days-count').innerText = diffDays;
+        }
+
+        function generateMustDoList() {
+            const list = document.getElementById('mustDoList');
+            for (let i = 1; i <= 100; i++) {
+                const item = document.createElement('div');
+                item.className = 'must-do-item';
+                item.textContent = `Task #${i}`;
+                list.appendChild(item);
+            }
         }
     </script>
 </body>
