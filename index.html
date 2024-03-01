@@ -102,10 +102,10 @@
             </form>
         </section>
         <section id="main" style="display:none;">
-            <h2>Celebrating <span class="days-count">100</span> Days Together!</h2>
-            <h3>Our Journey So Far</h3>
-            <p>Today marks our beautiful journey together. Here's to the love, laughter, and countless memories we've shared. Let's make every moment count!</p>
-            <h3>100 Must-Do List</h3>
+            <h2>我们已经在一起了<span class="days-count">100</span></h2>
+            <!-- <h3>Our Journey So Far</h3> -->
+            <!-- <p>Today marks our beautiful journey together. Here's to the love, laughter, and countless memories we've shared. Let's make every moment count!</p> -->
+            <h3>100件必做清单</h3>
             <div class="must-do-list" id="mustDoList"></div>
         </section>
     </main>
@@ -165,7 +165,16 @@
             for (let i = 1; i <= 100; i++) {
                 const item = document.createElement('div');
                 item.className = 'must-do-item';
-                item.textContent = `Task #${i}`;
+                if (i === 1) {
+                    item.textContent = "Task #1 \n 一起看电影"; // Change the text for the first task
+                    item.style.backgroundColor = "#a29bfe"; // Apply the unique color for the first task
+                // } else if (i === 3) {
+                //     item.textContent = `Task #${i} (Done)`; // Mark the third task as done
+                //     item.style.backgroundColor = "#a29bfe"; // Apply the unique color to indicate it's done
+                    // item.style.textDecoration = "line-through"; // Add line-through style for done task
+                } else {
+                    item.textContent = `Task #${i}`;
+                }
                 list.appendChild(item);
             }
         }
