@@ -166,14 +166,14 @@
                 const item = document.createElement('div');
                 item.className = 'must-do-item';
                 if (i === 1) {
-                    item.textContent = "Task #1 \n 一起看电影"; // Change the text for the first task
-                    item.style.backgroundColor = "#a29bfe"; // Apply the unique color for the first task
+                    item.textContent = "一起看电影";
+                    item.style.backgroundColor = "#ffcae9";
                 // } else if (i === 3) {
-                //     item.textContent = `Task #${i} (Done)`; // Mark the third task as done
-                //     item.style.backgroundColor = "#a29bfe"; // Apply the unique color to indicate it's done
-                    // item.style.textDecoration = "line-through"; // Add line-through style for done task
+                //     item.textContent = `Task #${i} (Done)`;
+                //     item.style.backgroundColor = "#a29bfe";
+                    // item.style.textDecoration = "line-through";
                 } else {
-                    item.textContent = `Task #${i}`;
+                    item.textContent = `PlaceHolder #${i}`;
                 }
                 list.appendChild(item);
             }
