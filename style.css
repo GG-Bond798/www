@@ -1,0 +1,73 @@
+body {
+    background: linear-gradient(to right, #FFC371, #FF5F6D);
+    color: #333;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+#login {
+    text-align: center;
+}
+#login form {
+    max-width: 480px;
+    margin: 2rem auto;
+    padding: 2rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    background: #fff;
+    display: flex; /* Ensuring the form itself is a flex container might help in certain layouts */
+    flex-direction: column; /* This ensures all direct children (like .grid) stack vertically */
+}
+
+#login form .grid {
+    display: grid;
+    grid-template-rows: auto auto auto; /* Explicitly defining three rows */
+    gap: 1rem; /* Space between rows */
+}
+
+#login form .grid > * {
+    width: 100%; /* Ensuring all children of .grid take up full width */
+}
+
+#main {
+    padding: 2rem 0;
+    text-align: center;
+    flex: 1; /* Make main content grow to fill available space */
+}
+#main h2 {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+#main .days-count {
+    display: inline-block;
+    font-size: 4rem;
+    color: #e67e22;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 0 0.5rem;
+}
+#main h3 {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.must-do-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+.must-do-item {
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+.must-do-item:first-child {
+    background-color: #a29bfe; /* A different, visually appealing color for the first task */
+}
+footer {
+    margin-top: 2rem;
+    text-align: center;
+}
