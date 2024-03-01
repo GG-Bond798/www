@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <title>Days Together</title>
+    <title>Private Dev Site</title>
     <style>
         body {
             background: linear-gradient(to right, #FFC371, #FF5F6D);
             color: #333;
+            min-height: 100vh; /* Ensure the background covers the whole page */
+            margin: 0; /* Remove default margin */
+            display: flex;
+            flex-direction: column;
+        }
+        #login {
+            text-align: center;
         }
         #login form {
             max-width: 480px;
@@ -17,15 +24,24 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 15px;
             background: #fff;
+            display: flex; /* Ensuring the form itself is a flex container might help in certain layouts */
+            flex-direction: column; /* This ensures all direct children (like .grid) stack vertically */
         }
+
         #login form .grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
+            grid-template-rows: auto auto auto; /* Explicitly defining three rows */
+            gap: 1rem; /* Space between rows */
         }
+
+        #login form .grid > * {
+            width: 100%; /* Ensuring all children of .grid take up full width */
+        }
+
         #main {
             padding: 2rem 0;
             text-align: center;
+            flex: 1; /* Make main content grow to fill available space */
         }
         #main h2 {
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -64,11 +80,12 @@
             text-align: center;
         }
     </style>
+    
 </head>
 <body>
     <nav class="container-fluid">
         <ul>
-            <li><strong>Days Together</strong></li>
+            <li><strong>Private Dev Site</strong></li>
         </ul>
         <ul>
             <li><a href="#login">Login</a></li>
@@ -96,15 +113,45 @@
         <small><a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a></small>
     </footer>
     <script>
-        function toggleMain() {
-            var loginSection = document.getElementById('login');
-            var mainSection = document.getElementById('main');
-            loginSection.style.display = 'none';
-            mainSection.style.display = 'block';
-            updateDaysTogether();
-            generateMustDoList();
+        async function toggleMain() {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const username = usernameInput.value;
+            const inputPassword = passwordInput.value;
+            const correctPasswordHashUsr1 = '0affd72c1363633dc0349e3f6f8aeb92685863d220a642a03843a14453b49607';
+    
+            try {
+                const inputPasswordHash = await sha256(inputPassword);
+    
+                if (username === 'usr1' && inputPasswordHash === correctPasswordHashUsr1) {
+                    // Hide login section and show main section
+                    document.getElementById('login').style.display = 'none';
+                    document.getElementById('main').style.display = 'block';
+                    updateDaysTogether();
+                    generateMustDoList();
+                } else {
+                    alert('Login failed. Please check your username and password.');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('An error occurred. Please try again later.');
+            }
         }
-
+    
+        async function sha256(message) {
+            // Encode the message as a Uint8Array
+            const msgBuffer = new TextEncoder().encode(message);
+    
+            // Hash the message
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    
+            // Convert the ArrayBuffer to hex string
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    
+            return hashHex;
+        }
+    
         function updateDaysTogether() {
             const startDate = new Date('February 18, 2024');
             const today = new Date();
@@ -112,7 +159,7 @@
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             document.querySelector('#main .days-count').innerText = diffDays;
         }
-
+    
         function generateMustDoList() {
             const list = document.getElementById('mustDoList');
             for (let i = 1; i <= 100; i++) {
@@ -122,6 +169,6 @@
                 list.appendChild(item);
             }
         }
-    </script>
+    </script>      
 </body>
 </html>
