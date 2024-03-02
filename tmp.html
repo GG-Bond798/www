@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="min.css">
+    <title>Private Dev Site</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #FFC371, #FF5F6D);
+            color: #333;
+            min-height: 100vh; /* Ensure the background covers the whole page */
+            margin: 0; /* Remove default margin */
+            display: flex;
+            flex-direction: column;
+        }
+        #login {
+            text-align: center;
+        }
+        #login form {
+            max-width: 480px;
+            margin: 2rem auto;
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            background: #fff;
+            display: flex; /* Ensuring the form itself is a flex container might help in certain layouts */
+            flex-direction: column; /* This ensures all direct children (like .grid) stack vertically */
+        }
+
+        #login form .grid {
+            display: grid;
+            grid-template-rows: auto auto auto; /* Explicitly defining three rows */
+            gap: 1rem; /* Space between rows */
+        }
+
+        #login form .grid > * {
+            width: 100%; /* Ensuring all children of .grid take up full width */
+        }
+
+        #main {
+            padding: 2rem 0;
+            text-align: center;
+            flex: 1; /* Make main content grow to fill available space */
+        }
+        #main h2 {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #main .days-count {
+            display: inline-block;
+            font-size: 4rem;
+            color: #e67e22;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 0 0.5rem;
+        }
+        #main h3 {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .must-do-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .must-do-item {
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .must-do-item:first-child {
+            background-color: #a29bfe; /* A different, visually appealing color for the first task */
+        }
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+        }
+    </style>
+    
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Private Dev Site</strong></li>
+        </ul>
+        <ul>
+            <li><a href="#login">Login</a></li>
+            <li><a href="#main">Main Page</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <section id="login">
+            <h2>Login</h2>
+            <form class="grid">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button type="submit" onclick="event.preventDefault(); toggleMain()">Login</button>
+            </form>
+        </section>
+        <section id="main" style="display:none;">
+            <h2>👩‍❤️‍👨已经在一起了<span class="days-count">100</span>天</h2>
+            <!-- <h3>Our Journey So Far</h3> -->
+            <!-- <p>Today marks our beautiful journey together. Here's to the love, laughter, and countless memories we've shared. Let's make every moment count!</p> -->
+            <h3>100件必做清单</h3>
+            <div class="must-do-list" id="mustDoList"></div>
+        </section>
+    </main>
+<!--     <footer class="container">
+        <small><a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a></small>
+    </footer> -->
+    <script>
+        async function toggleMain() {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const username = usernameInput.value;
+            const inputPassword = passwordInput.value;
+            const correctPasswordHashUsr1 = '0affd72c1363633dc0349e3f6f8aeb92685863d220a642a03843a14453b49607';
+    
+            try {
+                const inputPasswordHash = await sha256(inputPassword);
+    
+                if (username === 'bb' && inputPasswordHash === correctPasswordHashUsr1) {
+                    // Hide login section and show main section
+                    document.getElementById('login').style.display = 'none';
+                    document.getElementById('main').style.display = 'block';
+                    updateDaysTogether();
+                    generateMustDoList();
+                } else {
+                    alert('Login failed. Please check your username and password.');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        }
+    
+        async function sha256(message) {
+            // Encode the message as a Uint8Array
+            const msgBuffer = new TextEncoder().encode(message);
+    
+            // Hash the message
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    
+            // Convert the ArrayBuffer to hex string
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    
+            return hashHex;
+        }
+    
+        function updateDaysTogether() {
+            const startDate = new Date('February 18, 2024');
+            const today = new Date();
+            const diffTime = Math.abs(today - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.querySelector('#main .days-count').innerText = diffDays;
+        }
+    
+        function generateMustDoList() {
+            const list = document.getElementById('mustDoList');
+            for (let i = 1; i <= 100; i++) {
+                const item = document.createElement('div');
+                item.className = 'must-do-item';
+                if (i === 1) {
+                    item.textContent = "一起看电影";
+                    item.style.backgroundColor = "#ffcae9";
+                // } else if (i === 3) {
+                //     item.textContent = `Task #${i} (Done)`;
+                //     item.style.backgroundColor = "#a29bfe";
+                    // item.style.textDecoration = "line-through";
+                } else {
+                    item.textContent = `PlaceHolder #${i}`;
+                }
+                list.appendChild(item);
+            }
+        }
+    </script>      
+</body>
+</html>
