@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="min.css">
-    <title>Private Dev Site - Main</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>❤️</title>
     <style>
         body {
             background: linear-gradient(to right, #FFC371, #FF5F6D);
@@ -44,13 +45,37 @@
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            font-size: 16px;
+        }
+
+        .list-explanation {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .legend-item {
+            margin-bottom: 5px;
+        }
+
+        .color-key {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
     <nav class="container-fluid">
         <ul>
-            <li><strong>Private Dev Site</strong></li>
+            <li><strong>❤️</strong></li>
         </ul>
         <ul>
             <li><a href="index.html">Logout</a></li>
@@ -58,8 +83,16 @@
     </nav>
     <main class="container">
         <section id="main">
-            <h2>👩‍❤️‍👨已经在一起了<span class="days-count">100</span>天</h2>
+            <h2>👩‍❤️‍👨已经在一起了<span class="days-count"></span>天</h2>
             <h3>100件必做清单</h3>
+            <div class="list-explanation">
+                <div class="legend-item">
+                    <span class="color-key" style="background-color: #ffcae9;"></span> <span>已完成</span>
+                </div>
+                <div class="legend-item">
+                    <span class="color-key" style="background-color: #ffffff;"></span> <span>未完成</span>
+                </div>
+            </div>
             <div class="must-do-list" id="mustDoList"></div>
         </section>
     </main>
@@ -74,22 +107,63 @@
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             document.querySelector('#main .days-count').innerText = diffDays;
         }
-    
         function generateMustDoList() {
             const list = document.getElementById('mustDoList');
-            for (let i = 1; i <= 100; i++) {
+            const mustDoItems = [
+                { text: "一起看电影", backgroundColor: "#ffcae9" },
+                { text: "一起过生日", backgroundColor: "#fffff" },
+                { text: "一起去迪士尼", backgroundColor: "#fffff" },
+                { text: "一起做陶艺", backgroundColor: "#fffff" },
+                { text: "一起去健身房", backgroundColor: "#fffff" },
+                { text: "一起吃饭", backgroundColor: "#ffcae9" },
+                { text: "一起看日出", backgroundColor: "#fffff" },
+                { text: "一起玩游戏", backgroundColor: "#ffcae9" },
+                { text: "一起去爬山", backgroundColor: "#fffff" },
+                { text: "一起做摩天轮", backgroundColor: "#fffff" },
+                { text: "一起拍视频", backgroundColor: "#fffff" },
+                { text: "一起看烟花", backgroundColor: "#fffff" },
+                { text: "一起吃火锅", backgroundColor: "#ffcae9" },
+                { text: "一起庆祝纪念日", backgroundColor: "#fffff" },
+                { text: "一起看lol比赛", backgroundColor: "#fffff" },
+                { text: "一起听演唱会", backgroundColor: "#fffff" },
+                { text: "一起做饭", backgroundColor: "#fffff" },
+                { text: "一起跨年", backgroundColor: "#fffff" },
+                { text: "一起逛超市", backgroundColor: "#fffff" },
+                { text: "一起喝酒", backgroundColor: "#fffff" },
+                { text: "一起看鬼片", backgroundColor: "#fffff" },
+                { text: "给对方按摩", backgroundColor: "#ffcae9" },
+                { text: "一起买家具", backgroundColor: "#fffff" },
+                { text: "给对方化妆", backgroundColor: "#fffff" },
+                { text: "一起坐飞机", backgroundColor: "#fffff" },
+                { text: "穿情侣装", backgroundColor: "#fffff" },
+                { text: "给对方做礼物", backgroundColor: "#ffcae9" },
+                { text: "给对方写信", backgroundColor: "#fffff" },
+                { text: "一起洗澡", backgroundColor: "#ffcae9" },
+                { text: "学对方的爱好", backgroundColor: "#fffff" },
+                { text: "一起去水族馆", backgroundColor: "#ffcae9" },
+                { text: "一起做过山车", backgroundColor: "#fffff" },
+                { text: "一起吃宵夜", backgroundColor: "#ffcae9" },
+                { text: "烛光晚餐", backgroundColor: "#fffff" },
+                { text: "一起去看极光", backgroundColor: "#fffff" },
+
+            ];
+
+            for (let i = 0; i < Math.min(mustDoItems.length, 100); i++) {
                 const item = document.createElement('div');
                 item.className = 'must-do-item';
-                if (i === 1) {
-                    item.textContent = "一起看电影";
-                    item.style.backgroundColor = "#ffcae9";
-                // } else if (i === 3) {
-                //     item.textContent = `Task #${i} (Done)`;
-                //     item.style.backgroundColor = "#a29bfe";
-                    // item.style.textDecoration = "line-through";
-                } else {
-                    item.textContent = `PlaceHolder #${i}`;
+                item.textContent = mustDoItems[i].text;
+
+                // Apply optional styles if specified
+                if (mustDoItems[i].backgroundColor) {
+                    item.style.backgroundColor = mustDoItems[i].backgroundColor;
                 }
+
+                list.appendChild(item);
+            }
+            for (let i = mustDoItems.length; i < 100; i++) {
+                const item = document.createElement('div');
+                item.className = 'must-do-item';
+                item.textContent = `Placeholder #${i + 1}`;
                 list.appendChild(item);
             }
         }
