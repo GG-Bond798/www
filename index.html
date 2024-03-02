@@ -62,12 +62,12 @@
             const passwordInput = document.getElementById('password');
             const username = usernameInput.value;
             const inputPassword = passwordInput.value;
-            const correctPasswordHashUsr1 = 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb';
+            const correctPasswordHashUsr1 = '805f418d9c30737c2743d627c955bcf45839e1f9435871cb62126583f19af97e';
 
             try {
                 const inputPasswordHash = await sha256(inputPassword);
 
-                if (username === 'a' && inputPasswordHash === correctPasswordHashUsr1) {
+                if (username === 'bb' && inputPasswordHash === correctPasswordHashUsr1) {
                     sessionStorage.setItem('isAuthenticated', 'true');
                     window.location.href = 'main.html'; // Make sure 'main.html' exists and is the correct path
                 } else {
