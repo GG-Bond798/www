@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="min.css">
+    <title>Private Dev Site - Main</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #FFC371, #FF5F6D);
+            color: #333;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        #main {
+            padding: 2rem 0;
+            text-align: center;
+            flex: 1;
+        }
+        #main h2 {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #main .days-count {
+            display: inline-block;
+            font-size: 4rem;
+            color: #e67e22;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 0 0.5rem;
+        }
+        .must-do-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .must-do-item {
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Private Dev Site</strong></li>
+        </ul>
+        <ul>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <section id="main">
+            <h2>👩‍❤️‍👨已经在一起了<span class="days-count">100</span>天</h2>
+            <h3>100件必做清单</h3>
+            <div class="must-do-list" id="mustDoList"></div>
+        </section>
+    </main>
+    <script>
+        if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+            window.location.href = 'index.html';
+        }
+        function updateDaysTogether() {
+            const startDate = new Date('February 18, 2024');
+            const today = new Date();
+            const diffTime = Math.abs(today - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.querySelector('#main .days-count').innerText = diffDays;
+        }
+    
+        function generateMustDoList() {
+            const list = document.getElementById('mustDoList');
+            for (let i = 1; i <= 100; i++) {
+                const item = document.createElement('div');
+                item.className = 'must-do-item';
+                if (i === 1) {
+                    item.textContent = "一起看电影";
+                    item.style.backgroundColor = "#ffcae9";
+                // } else if (i === 3) {
+                //     item.textContent = `Task #${i} (Done)`;
+                //     item.style.backgroundColor = "#a29bfe";
+                    // item.style.textDecoration = "line-through";
+                } else {
+                    item.textContent = `PlaceHolder #${i}`;
+                }
+                list.appendChild(item);
+            }
+        }
+        window.onload = function() {
+            updateDaysTogether();
+            generateMustDoList();
+        };
+    </script>
+</body>
+</html>
