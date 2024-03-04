@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>Countdown Page</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #FFC371, #FF5F6D);
+            color: #333;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+        }
+        /* .countdown-page {
+            max-width: 600px;
+            width: 90%;
+            margin: 2rem;
+            padding: 2rem;
+            padding-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background: #fff;
+            text-align: center;
+        } */
+        .countdown-list {
+            display: grid;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .countdown-item {
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        /* tag */
+        .countdown-item h3 {
+            margin: 0;
+            padding: 0;
+            color: #1e40af;
+            font-size: 1.5rem;
+        }
+        /* day */
+        .countdown-item p {
+            margin: 10px 0 0;
+            padding: 0;
+            color: #1e3a8a;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .countdown-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>❤️</strong></li>
+        </ul>
+        <ul>
+            <li><a href="main.html">100件事</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="countdown-page">
+        <h2>小日子</h2>
+        <div class="countdown-list" id="countdownList">
+            <!-- Countdown items will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCountdowns();
+        });
+        if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+            window.location.href = 'index.html';
+        }
+        function generateCountdowns() {
+            const countdownList = document.getElementById('countdownList');
+            const countdownTargets = [
+                { event: "🐷", date: "2024-02-18" },
+                { event: "🐷第100天", date: "2024-05-29" },
+                { event: "第一次见面", date: "2024-02-18" },
+                { event: "第二次见面", date: "2024-04-14" },
+            ];
+
+            countdownTargets.forEach(target => {
+                const item = document.createElement('div');
+                item.className = 'countdown-item';
+                item.innerHTML = `
+                    <h3>${target.event}</h3>
+                    <p id="countdown-${target.event.replace(/\s+/g, '-')}">Loading...</p>
+                `;
+                countdownList.appendChild(item);
+
+                updateCountdown(target.event.replace(/\s+/g, '-'), target.date);
+            });
+        }
+
+        function updateCountdown(elementId, targetDate) {
+            const countdownElement = document.getElementById(`countdown-${elementId}`);
+            const target = new Date(targetDate).getTime();
+
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = target - now;
+
+                if (distance < 0) {
+                    const daysPassed = Math.floor(Math.abs(distance) / (1000 * 60 * 60 * 24));
+                    countdownElement.innerHTML = `已经过去了 ${daysPassed} 天`;
+                    clearInterval(interval);
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // countdownElement.innerHTML = `还有 ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                countdownElement.innerHTML = `还有 ${days} 天`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
