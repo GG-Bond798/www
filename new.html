@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>Countdown Page</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #FFC371, #FF5F6D);
+            color: #333;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            padding-top: 0;
+        }
+        nav.container-fluid {
+            width: 100%;
+            background-color: #ffffff; /* Add a background color if you want */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow for depth */
+            position: sticky; /* Makes the nav stick to the top */
+            top: 0; /* Position at the very top */
+            z-index: 1000; /* Ensures nav stays on top of other content */
+        }
+        .quote-section, .number-section {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 30px; /* Space between sections */
+        }
+
+        .quote {
+            font-size: 1.5rem;
+            color: #333;
+            font-style: italic;
+        }
+
+        .number {
+            font-size: 4rem;
+            color: #e63946;
+        }
+
+        .title {
+            font-size: 1.2rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>❤️</strong></li>
+        </ul>
+        <ul>
+            <li><a href="main.html">100件事</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="quote-section">
+        <div class="quote">"The best way to predict the future is to invent it."</div>
+    </div>
+
+    <div class="number-section">
+        <div class="number">42</div>
+        <div class="title">The Answer to Life, the Universe, and Everything</div>
+    </div>
+<!-- 
+    <script>
+        if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+            window.location.href = 'index.html';
+        }
+    </script> -->
+</body>
+</html>
