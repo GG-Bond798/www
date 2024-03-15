@@ -62,8 +62,8 @@
             const passwordInput = document.getElementById('password');
             const username = usernameInput.value;
             const inputPassword = passwordInput.value;
-            const correctUsernameHashUsr1 = '3b64db95cb55c763391c707108489ae18b4112d783300de38e033b4c98c3deaf';
-            const correctPasswordHashUsr1 = '6872b0ff97f66a88be34b12a082963d2619fd3eb4c122f5b14e5cb0919b5e3c4';
+            const correctUsernameHashUsr1 = '24b1a812d4e3535c06011c430aaba3f59d32f36263ddcb99541f998266c5e84a52fb33f951cec78656f598a004f83c771388b9a80404f7432b714f4dcae4a00f';
+            const correctPasswordHashUsr1 = '1fc8439138c0844c6d2f04bf2b8b6bf3055be295bda3c0885238003bbde63736725db3d4fcec9edaf0c397e62934a9daa0d56f8d5dfe7458a123ba7e6031b2e8';
             try {
                 const inputUsernameHash = await sha256(username);
                 const inputPasswordHash = await sha256(inputPassword);
@@ -84,7 +84,7 @@
             const msgBuffer = new TextEncoder().encode(message);
     
             // Hash the message
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashBuffer = await crypto.subtle.digest('SHA-512', msgBuffer);
     
             // Convert the ArrayBuffer to hex string
             const hashArray = Array.from(new Uint8Array(hashBuffer));
