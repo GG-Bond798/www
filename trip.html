@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Trip Planner</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .map-container, .plans-container {
+            flex: 1;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            margin: 10px;
+        }
+        .map-container {
+            min-width: 300px;
+            height: 400px;
+            background-color: #e0e0e0; /* Placeholder for the map */
+        }
+        .plans-container {
+            margin-left: 20px;
+        }
+        .date-picker {
+            margin-bottom: 20px;
+        }
+        .activity {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="date-picker">
+    <input type="date" id="dateInput" onchange="loadPlansForDate()">
+</div>
+
+<div class="container">
+    <div class="map-container" id="map">
+        <!-- Map will be displayed here -->
+    </div>
+    <div class="plans-container" id="dailyPlans">
+        <!-- Plans for the selected date will be displayed here -->
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('dateInput').value = today;
+
+        loadPlansForDate();
+    });
+    const plansByDate = {
+        '2024-04-15': [
+            { title: 'Breakfast at the local café', lat: 40.730610, lng: -73.935242 },
+            { title: 'Visit the Museum of Modern Art', lat: 40.761436, lng: -73.977621 },
+            { title: 'Lunch at Central Park', lat: 40.781324, lng: -73.966988 },
+            { title: 'Explore Central Library', lat: 40.753182, lng: -73.982253 },
+        ],
+       
+    };
+
+    const nycCoordinates = { lat: 40.712776, lng: -74.005974 };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initMapForDate();
+        document.getElementById('dailyPlans').innerHTML = `<h2>Select a date to see plans</h2>`;
+    });
+
+    function loadPlansForDate() {
+        const date = document.getElementById('dateInput').value;
+        const plansElement = document.getElementById('dailyPlans');
+       
+        if (plansByDate[date]) {
+            let plansHtml = `<h2>Plans for ${date}</h2>`;
+            plansByDate[date].forEach(plan => {
+                plansHtml += `<div class="activity">${plan.title}</div>`;
+            });
+            plansElement.innerHTML = plansHtml;
+            initMapForDate(date);
+        } else {
+            plansElement.innerHTML = `<h2>No plans for ${date}</h2>`;
+            initMapForDate();
+        }
+    }
+
+    function initMapForDate(date = null) {
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: nycCoordinates,
+            zoom: 10,
+        });
+        
+        let bounds = new google.maps.LatLngBounds();
+        let flightPlanCoordinates = [];
+       
+        if (date && plansByDate[date]) {
+            plansByDate[date].forEach(plan => {
+                const markerPosition = new google.maps.LatLng(plan.lat, plan.lng);
+                new google.maps.Marker({
+                    position: markerPosition,
+                    map: map,
+                    title: plan.title,
+                });
+               
+                bounds.extend(markerPosition);
+               
+                flightPlanCoordinates.push(markerPosition);
+            });
+            
+            
+            map.fitBounds(bounds);
+            if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+                let extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01);
+                let extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.01, bounds.getNorthEast().lng() - 0.01);
+                bounds.extend(extendPoint1);
+                bounds.extend(extendPoint2);
+                map.fitBounds(bounds);
+                map.setZoom(map.getZoom() > 15 ? 15 : map.getZoom());
+            }
+            
+            
+            const flightPath = new google.maps.Polyline({
+                path: flightPlanCoordinates,
+                geodesic: true,
+                strokeColor: "#FF0000",
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+            });
+            flightPath.setMap(map);
+        } else {
+            const map_else = new google.maps.Map(document.getElementById("map"), {
+                zoom: date ? 13 : 10,
+                center: date && plansByDate[date] && plansByDate[date][0] ? { lat: plansByDate[date][0].lat, lng: plansByDate[date][0].lng } : nycCoordinates,
+            });
+            const nycMarker = new google.maps.Marker({
+                position: nycCoordinates,
+                map: map_else,
+                title: "New York City",
+            });
+            bounds.extend(nycCoordinates);
+            map.fitBounds(bounds);
+        }
+    }
+</script>
+
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxOV_vvHfmVUkhaDnYWE6n3OEvx7c_zx8&callback=initMap"></script>
+
+</body>
+</html>
