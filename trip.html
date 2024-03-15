@@ -103,9 +103,9 @@
     </div>
 
 <script>
-    if (sessionStorage.getItem('isAuthenticated') !== 'true') {
-        window.location.href = 'index.html';
-    }
+    // if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+    //     window.location.href = 'index.html';
+    // }
     let globalMap;
     document.addEventListener('DOMContentLoaded', function() {
         const today = new Date().toISOString().split('T')[0];
@@ -126,8 +126,29 @@
         const date = document.getElementById('dateInput').value;
         const plansElement = document.getElementById('dailyPlans');
         const plansByDate = {
-            '2024-03-15': [
-                { title: 'Place Holder', lat: 40.730610, lng: -73.935242 },
+            '2024-04-14': [
+                { title: 'Train Station', lat: 40.7517137, lng: -73.9957489 },
+                { title: '🐮肠', lat: 40.746958, lng: -73.9874796 },
+                { title: '酒店', lat: 40.730610, lng: -73.935242 },
+                { title: '电影院', lat: 40.7482697, lng: -74.0027964 },
+                // { title: 'Place Holder', lat: 40.730610, lng: -73.935242 },
+            ],
+            '2024-04-15': [
+                { title: '早茶', lat: 40.7205049, lng: -74.0003671 },
+                { title: 'MoMa', lat: 40.7611111, lng: -73.9812785 },
+                { title: 'The Met', lat: 40.7794366, lng: -73.9658243 },
+                { title: 'Gordon 小破汉堡', lat: 40.7567926, lng: -73.9856713 },
+            ],
+            '2024-04-16': [
+                { title: '南翔小笼包', lat: 40.7862878, lng: -74.0239547 },
+                { title: '樱花', lat: 40.7858621, lng: -73.9605309 },
+                // { title: 'Place Holder', lat: 40.730610, lng: -73.935242 },
+            ],
+            '2024-04-17': [
+                // { title: 'Place Holder', lat: 40.730610, lng: -73.935242 },
+                { title: 'Train Station', lat: 40.7517137, lng: -73.9957489 },
+
+
             ],
         };
 
