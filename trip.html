@@ -107,6 +107,8 @@
     //     window.location.href = 'index.html';
     // }
     let globalMap;
+    let markers = []; // This array will hold all the markers
+
     document.addEventListener('DOMContentLoaded', function() {
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('dateInput').value = today;
@@ -153,6 +155,8 @@
         };
 
         let plansHtml = plansByDate[date] ? `<h2>Plans for ${date}</h2>` : `<h2>No plans for ${date}</h2>`;
+        clearMarkers();
+        globalMap.bounds = new google.maps.LatLngBounds(); 
         if (plansByDate[date]) {
             plansByDate[date].forEach(plan => {
                 plansHtml += `<div class="activity">${plan.title}</div>`;
@@ -167,13 +171,19 @@
 
     function addMarkerToMap(plan, map) {
         const markerPosition = new google.maps.LatLng(plan.lat, plan.lng);
-        new google.maps.Marker({
+        const marker = new google.maps.Marker({
             position: markerPosition,
             map: map,
             title: plan.title,
         });
-        map.bounds = map.bounds || new google.maps.LatLngBounds();
+        markers.push(marker); // Add the marker to the markers array
         map.bounds.extend(markerPosition);
+    }
+    function clearMarkers() {
+        for (let marker of markers) {
+            marker.setMap(null); // Removes the marker from the map
+        }
+        markers = []; // Reset the markers array
     }
 
     function fitMapToMarkersBounds(map) {
