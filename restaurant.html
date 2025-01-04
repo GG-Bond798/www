@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Trip Planner</title>
+    <link rel="stylesheet" href="min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #FFC371, #FF5F6D);
+            color: #333;
+            margin: 0;
+            padding: 0 0 20px 0; /* Padding only at the bottom */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center children horizontally */
+            justify-content: flex-start; /* Align content to the top */
+            min-height: 100vh;
+        }
+    
+        nav {
+            width: 100%; /* Full width */
+            margin-bottom: 20px; /* Margin at the bottom of the nav */
+        }
+    
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0; /* Reset margin */
+            display: flex;
+            justify-content: center; /* Center navigation items */
+            gap: 20px; /* Add some space between nav items */
+        }
+    
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .ranking-container {
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%; /* Adjust width as necessary */
+        }
+
+        .ranking-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>❤️</strong></li>
+        </ul>
+        <ul>
+            <li><a href="main.html">100件事</a></li>
+            <li><a href="xiaorizi.html">小日子</a></li>
+            <li><a href="con.html">嘻嘻嘻</a></li>
+            <li><a href="restaurant.html">Restaurant Ranking</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="ranking-container" id="ranking">
+        <h2>Top 5 Restaurants</h2>
+        <div id="rankingContent"></div>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        loadRanking(); // Load restaurant ranking
+    });
+
+    function loadRanking() {
+        const rankingContent = document.getElementById('rankingContent');
+        const topRestaurants = [
+            { name: "Jumbo Seafood", address: "5 Hudson St, Boston, MA 02111" },
+            { name: "Chongqing Lao Zao 重慶老灶", address: "37-04 Prince St, Flushing, NY 11354" },
+            { name: "Bubblefish", address: "909 Arch St, Philadelphia, PA 19107" },
+            { name: "Thai Villa", address: "5 E 19th St, New York, NY 10003" },
+            { name: "Jing Fong", address: "202 Centre St, New York, NY 10013" },
+        ];
+
+        rankingContent.innerHTML = topRestaurants.map((restaurant, index) => `
+            <div class="ranking-item">
+                <strong>${index + 1}. ${restaurant.name}</strong><br>
+                ${restaurant.address}
+            </div>
+        `).join("");
+    }
+</script>
+</body>
+</html>
