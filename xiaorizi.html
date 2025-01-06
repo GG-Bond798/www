@@ -1,66 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <title>Countdown Page</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Liu+Jian+Mao+Cao&family=Long+Cang&family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap"
+    rel="stylesheet"
+  >
+  <title>小日子</title>
+
+  <style>
         body {
             background: linear-gradient(to right, #FFC371, #FF5F6D);
             color: #333;
-            min-height: 100vh;
             margin: 0;
+            padding: 0 0 20px 0; /* Padding only at the bottom */
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Arial', sans-serif;
+            align-items: center; /* Center children horizontally */
+            justify-content: flex-start; /* Align content to the top */
+            min-height: 100vh;
+            font-family: "Ma Shan Zheng", serif; /* Updated font */
         }
-        .countdown-page {
-            max-width: 600px;
-            width: 90%;
-            margin: 2rem;
-            padding: 2rem;
-            padding-bottom: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            background: #fff;
-            text-align: center;
+/* 
+        nav.container-fluid {
+            background: transparent;
+            padding: 1rem;
         }
-        .countdown-list {
-            display: grid;
-            gap: 30px;
-            margin-top: 30px;
-        }
-        .countdown-item {
-            background: #eff6ff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-        /* tag */
-        .countdown-item h3 {
+        nav.container-fluid ul {
+            padding: 0;
             margin: 0;
-            padding: 0;
-            color: #1e40af;
-            font-size: 1.5rem;
+            list-style: none;
         }
-        /* day */
-        .countdown-item p {
-            margin: 10px 0 0;
-            padding: 0;
-            color: #1e3a8a;
+        nav.container-fluid ul:last-child {
+            display: flex;
+            gap: 20px;
+        }
+        nav.container-fluid a {
+            color: #333;
+            text-decoration: none;
             font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        nav.container-fluid a:hover {
+            color: #666;
+        }
+        /* Highlight the current page */
+        nav.container-fluid a[href="xiaorizi.html"] {
             font-weight: bold;
-        }
-        .countdown-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-    
+            color: #000;
+        } */
+
+
+    /* 新增一个 #main 容器，保证和 100件事 的排版相似 */
+    #main {
+      padding: 2rem 0;
+      text-align: center;
+      flex: 1;
+    }
+
+    /* 给主标题和卡片容器增加类似 100件事 的样式 */
+    #main h2 {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+      text-align: center; /* Center the text */
+    }
+
+    .dates-container {
+      padding: 0 150prem;
+      margin: 0 auto; /* Center the container */
+      max-width: 800px; /* Optional: Set a max-width for better centering */
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: left; /* 如要居中可改成 center */
+    }
+    .card-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .date-item {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      border: 1px solid #eee;
+    }
+    .date-item:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .date-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .date-title {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+    .date-date {
+      color: #666;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    .date-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .date-countdown {
+      color: #2563eb;
+      font-weight: 500;
+    }
+    .archived .date-item {
+      background: #f8f8f8;
+      border-color: #ddd;
+    }
+    .archived .date-countdown {
+      color: #666;
+    }
+    .btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #f0f0f0;
+    }
+    .important-marker {
+      color: #ec4899;
+    }
+    .star-btn.active {
+      color: #fbbf24;
+    }
+    .archive-btn {
+      color: #666;
+    }
+    .archived-section {
+      opacity: 0.8;
+    }
+
+    .card-title {
+        font-family: "Ma Shan Zheng", serif;
+    }
+    .date-title {
+    font-family: "Ma Shan Zheng", serif;
+    }
+  </style>
 </head>
 <body>
     <nav class="container-fluid">
@@ -71,77 +180,127 @@
             <li><a href="main.html">100件事</a></li>
             <li><a href="xiaorizi.html">小日子</a></li>
             <li><a href="con.html">嘻嘻嘻</a></li>
-            <li><a href="trip.html">Trip</a></li>
+            <!-- <li><a href="trip.html">Trip</a></li> -->
             <li><a href="restaurant.html">Restaurant Ranking</a></li>
             <li><a href="index.html">Logout</a></li>
         </ul>
     </nav>
-    <div class="countdown-page">
-        <h2>小日子</h2>
-        <div class="countdown-list" id="countdownList">
-            <!-- Countdown items will be generated here -->
+
+  <main id="main">
+    <!-- <h2>小日子</h2> -->
+    <div class="dates-container">
+      <div class="card">
+        <h3 class="card-title">
+          📅 超级无敌💥重要的日子
+        </h3>
+        <div id="activeDates">
+          <!-- Active dates will be inserted here -->
         </div>
+      </div>
+
+      <div class="card archived-section" id="archivedSection" style="display: none;">
+        <h3 class="card-title">
+          📦 已归档的日子
+        </h3>
+        <div id="archivedDates">
+        </div>
+      </div>
     </div>
+  </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            generateCountdowns();
-        });
-        if (sessionStorage.getItem('isAuthenticated') !== 'true') {
-            window.location.href = 'index.html';
-        }
-        function generateCountdowns() {
-            const countdownList = document.getElementById('countdownList');
-            const countdownTargets = [
-                { event: "🐷", date: "2024-02-18" },
-                { event: "🐷一周年", date: "2025-02-18" },
-                { event: "第六次见面", date: "2024-12-30" },
-                { event: "第五次见面", date: "2024-11-23" },
-                { event: "第四次见面", date: "2024-08-31" },
-                { event: "第三次见面", date: "2024-06-29" },
-                { event: "第二次见面", date: "2024-04-14" },
-                { event: "第一次见面", date: "2024-02-18" },
-                // { event: "🐷200天", date: "2024-09-05" },
-                // { event: "🐷100天", date: "2024-05-29" },
-            ];
+  <script>
+    // 与原逻辑相同
+    if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+      window.location.href = 'index.html';
+    }
 
-            countdownTargets.forEach(target => {
-                const item = document.createElement('div');
-                item.className = 'countdown-item';
-                item.innerHTML = `
-                    <h3>${target.event}</h3>
-                    <p id="countdown-${target.event.replace(/\s+/g, '-')}">Loading...</p>
-                `;
-                countdownList.appendChild(item);
+    let dates = JSON.parse(localStorage.getItem('important-dates')) || [
+        { id: 1, title: '🐷', date: '2024-02-18', important: true, archived: false },
+        { id: 2, title: '🐷一周年', date: '2025-02-18', important: true, archived: false },
+        { id: 3, title: '第六次见面', date: '2024-12-30', important: false, archived: true },
+        { id: 4, title: '第五次见面', date: '2024-11-23', important: false, archived: true },
+        { id: 5, title: '第四次见面', date: '2024-08-31', important: false, archived: true },
+        { id: 6, title: '第三次见面', date: '2024-06-29', important: false, archived: true },
+        { id: 7, title: '第二次见面', date: '2024-04-14', important: false, archived: true },
+        { id: 8, title: '第一次见面', date: '2024-02-18', important: false, archived: true },
+        // { id: 9, title: '🐷200天', date: '2024-09-05', important: true, archived: false },
+    ];
 
-                updateCountdown(target.event.replace(/\s+/g, '-'), target.date);
-            });
-        }
+    function saveDates() {
+      localStorage.setItem('important-dates', JSON.stringify(dates));
+    }
 
-        function updateCountdown(elementId, targetDate) {
-            const countdownElement = document.getElementById(`countdown-${elementId}`);
-            const target = new Date(targetDate).getTime();
+    function calculateDaysDifference(dateStr) {
+      const today = new Date();
+      const date = new Date(dateStr);
+      const diffTime = date - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-            const interval = setInterval(() => {
-                const now = new Date().getTime();
-                const distance = target - now;
+      if (diffDays > 0) {
+        return `还有${diffDays}天`;
+      } else if (diffDays < 0) {
+        return `已经过去了${Math.abs(diffDays)}天`;
+      }
+      return '就是今天！';
+    }
 
-                if (distance < 0) {
-                    const daysPassed = Math.floor(Math.abs(distance) / (1000 * 60 * 60 * 24));
-                    countdownElement.innerHTML = `已经过去了 ${daysPassed} 天`;
-                    clearInterval(interval);
-                    return;
-                }
+    function createDateElement(date) {
+      return `
+        <div class="date-item" data-id="${date.id}">
+          <div class="date-info">
+            ${date.important ? '<span class="important-marker">❤️</span>' : ''}
+            <div>
+              <h3 class="date-title">${date.title}</h3>
+              <p class="date-date">${date.date}</p>
+            </div>
+          </div>
+          <div class="date-actions">
+            <span class="date-countdown">${calculateDaysDifference(date.date)}</span>
+            <button class="btn star-btn ${date.important ? 'active' : ''}" onclick="toggleImportant(${date.id})">
+              ⭐
+            </button>
+            <button class="btn archive-btn" onclick="toggleArchive(${date.id})">
+              ${date.archived ? '↩️' : '📦'}
+            </button>
+          </div>
+        </div>
+      `;
+    }
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    function renderDates() {
+      const activeDates = dates.filter(date => !date.archived);
+      const archivedDates = dates.filter(date => date.archived);
 
-                // countdownElement.innerHTML = `还有 ${days}d ${hours}h ${minutes}m ${seconds}s`;
-                countdownElement.innerHTML = `还有 ${days} 天`;
-            }, 1000);
-        }
-    </script>
+      document.getElementById('activeDates').innerHTML =
+        activeDates.map(date => createDateElement(date)).join('');
+
+      const archivedSection = document.getElementById('archivedSection');
+      document.getElementById('archivedDates').innerHTML =
+        archivedDates.map(date => createDateElement(date)).join('');
+
+      archivedSection.style.display = archivedDates.length > 0 ? 'block' : 'none';
+    }
+
+    function toggleImportant(id) {
+      const date = dates.find(d => d.id === id);
+      if (date) {
+        date.important = !date.important;
+        saveDates();
+        renderDates();
+      }
+    }
+
+    function toggleArchive(id) {
+      const date = dates.find(d => d.id === id);
+      if (date) {
+        date.archived = !date.archived;
+        saveDates();
+        renderDates();
+      }
+    }
+
+    // Initial render
+    renderDates();
+  </script>
 </body>
 </html>

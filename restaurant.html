@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Trip Planner</title>
     <link rel="stylesheet" href="min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Liu+Jian+Mao+Cao&family=Long+Cang&family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
             background: linear-gradient(to right, #FFC371, #FF5F6D);
             color: #333;
             margin: 0;
@@ -17,25 +19,7 @@
             align-items: center; /* Center children horizontally */
             justify-content: flex-start; /* Align content to the top */
             min-height: 100vh;
-        }
-    
-        nav {
-            width: 100%; /* Full width */
-            margin-bottom: 20px; /* Margin at the bottom of the nav */
-        }
-    
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0; /* Reset margin */
-            display: flex;
-            justify-content: center; /* Center navigation items */
-            gap: 20px; /* Add some space between nav items */
-        }
-    
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
+            font-family: "Ma Shan Zheng", serif; /* Updated font */
         }
 
         .ranking-container {
@@ -45,10 +29,27 @@
             padding: 20px;
             max-width: 600px;
             width: 90%; /* Adjust width as necessary */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ranking-container h2 {
+            font-family: "Ma Shan Zheng", serif; /* Updated font */
+            font-size: 2rem;
+            color: #1e3a8a;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .ranking-item {
             margin-bottom: 10px;
+            font-family: "Ma Shan Zheng", serif; /* Updated font */
+            font-size: 1.1rem;
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .ranking-item:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
@@ -61,6 +62,7 @@
             <li><a href="main.html">100件事</a></li>
             <li><a href="xiaorizi.html">小日子</a></li>
             <li><a href="con.html">嘻嘻嘻</a></li>
+            <!-- <li><a href="trip.html">Trip</a></li> -->
             <li><a href="restaurant.html">Restaurant Ranking</a></li>
             <li><a href="index.html">Logout</a></li>
         </ul>
@@ -71,28 +73,28 @@
         <div id="rankingContent"></div>
     </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        loadRanking(); // Load restaurant ranking
-    });
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRanking(); // Load restaurant ranking
+        });
 
-    function loadRanking() {
-        const rankingContent = document.getElementById('rankingContent');
-        const topRestaurants = [
-            { name: "Jumbo Seafood", address: "5 Hudson St, Boston, MA 02111" },
-            { name: "Chongqing Lao Zao 重慶老灶", address: "37-04 Prince St, Flushing, NY 11354" },
-            { name: "Bubblefish", address: "909 Arch St, Philadelphia, PA 19107" },
-            { name: "Thai Villa", address: "5 E 19th St, New York, NY 10003" },
-            { name: "Jing Fong", address: "202 Centre St, New York, NY 10013" },
-        ];
+        function loadRanking() {
+            const rankingContent = document.getElementById('rankingContent');
+            const topRestaurants = [
+                { name: "Jumbo Seafood", address: "5 Hudson St, Boston, MA 02111" },
+                { name: "Chongqing Lao Zao 重庆老灶", address: "37-04 Prince St, Flushing, NY 11354" },
+                { name: "Bubblefish", address: "909 Arch St, Philadelphia, PA 19107" },
+                { name: "Thai Villa", address: "5 E 19th St, New York, NY 10003" },
+                { name: "Jing Fong", address: "202 Centre St, New York, NY 10013" },
+            ];
 
-        rankingContent.innerHTML = topRestaurants.map((restaurant, index) => `
-            <div class="ranking-item">
-                <strong>${index + 1}. ${restaurant.name}</strong><br>
-                ${restaurant.address}
-            </div>
-        `).join("");
-    }
-</script>
+            rankingContent.innerHTML = topRestaurants.map((restaurant, index) => `
+                <div class="ranking-item">
+                    <strong>${index + 1}. ${restaurant.name}</strong><br>
+                    ${restaurant.address}
+                </div>
+            `).join("");
+        }
+    </script>
 </body>
 </html>

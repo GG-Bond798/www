@@ -1,46 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>❤️</title>
+    <link rel="stylesheet" href="min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Liu+Jian+Mao+Cao&family=Long+Cang&family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(to right, #FFC371, #FF5F6D);
             color: #333;
-            min-height: 100vh;
             margin: 0;
+            padding: 0 0 20px 0; /* Padding only at the bottom */
             display: flex;
             flex-direction: column;
+            align-items: center; /* Center children horizontally */
+            justify-content: flex-start; /* Align content to the top */
+            min-height: 100vh;
+            font-family: "Ma Shan Zheng", serif; /* Updated font */
         }
-        .quote-section, .number-section {
+
+        .quote-section {
             text-align: center;
             background-color: #fff;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            margin: 30px auto; /* Center the sections horizontally and add space between them */
-            max-width: 600px; /* Limit the width of these sections */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 30px auto;
+            max-width: 600px;
+            width: 90%;
         }
+
         .quote {
             font-size: 1.5rem;
             color: #333;
             font-style: italic;
+            margin-bottom: 20px;
         }
 
         .number {
             font-size: 4rem;
             color: #e63946;
+            margin-bottom: 20px;
         }
 
         .title {
             font-size: 1.2rem;
             color: #333;
         }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .quote-section {
+                padding: 20px;
+            }
+
+            .quote {
+                font-size: 1.2rem;
+            }
+
+            .number {
+                font-size: 3rem;
+            }
+
+            .title {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
+
 <body>
     <nav class="container-fluid">
         <ul>
@@ -50,22 +86,22 @@
             <li><a href="main.html">100件事</a></li>
             <li><a href="xiaorizi.html">小日子</a></li>
             <li><a href="con.html">嘻嘻嘻</a></li>
-            <li><a href="trip.html">Trip</a></li>
+            <!-- <li><a href="trip.html">Trip</a></li> -->
+            <li><a href="restaurant.html">Restaurant Ranking</a></li>
             <li><a href="index.html">Logout</a></li>
         </ul>
     </nav>
+
     <div class="quote-section">
         <div class="quote">嘻嘻嘻嘻嘻嘻嘻嘻~~~~~</div>
-    <!-- </div>
-
-    <div class="number-section"> -->
         <div class="number">33</div>
-        <div class="title"></div>
     </div>
+
     <script>
         if (sessionStorage.getItem('isAuthenticated') !== 'true') {
             window.location.href = 'index.html';
         }
     </script>
 </body>
+
 </html>
